@@ -3,6 +3,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import HomeScreen from '../screens/HomeScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import WeatherCard from '../screens/TestWeather';
 
 
 const Tab = createBottomTabNavigator(); 
@@ -56,6 +57,16 @@ const BottomNavigator = () => {
           tabBarLabel: "Profile",
           tabBarIcon: ({ focused }) => (
             <Icon name="account" size={25} color={focused ? "black" : "white"} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="weather"
+        component={WeatherCard}
+        options={{
+          tabBarLabel: "Test",
+          tabBarIcon: ({ focused }) => (
+            <Icon name="weather-sunny" size={25} color={focused ? "black" : "white"} />
           ),
         }}
       />

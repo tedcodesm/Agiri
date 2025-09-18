@@ -32,6 +32,7 @@ const LoginScreen = () => {
   };
 
   const handleLogin = async () => {
+    console.log("Attempting login with:", { email, password });
     try {
       const res = await axios.post(`${BASE_URL}/auth/login`, {
         email,

@@ -9,6 +9,7 @@ import SplashScreen from '../screens/SplashScreen';
 import LoginScreen from '../screens/LoginScreen';
 import VerifyOTP from '../screens/OtpScreen';
 import NotificationScreen from '../screens/NotificationScreen';
+import WeatherCard from '../screens/TestWeather';
 
 const Stack = createStackNavigator();
 const StackNavigator = () => {
@@ -21,6 +22,7 @@ const StackNavigator = () => {
     <Stack.Screen name="not" component={NotificationScreen} options={{headerShown:false}} />
     <Stack.Screen name="signup" component={SignupScreen} options={{headerShown:false}} />
     <Stack.Screen name="otp" component={VerifyOTP} options={{headerShown:false}} />
+    <Stack.Screen name="weather" component={WeatherCard} options={{headerShown:false}} />
     
     </Stack.Navigator>
 

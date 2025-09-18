@@ -6,11 +6,13 @@ import {
   TextInput,
   ScrollView,
   Dimensions,
+  TouchableOpacity
 } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { LineChart, BarChart, PieChart } from "react-native-chart-kit";  
+import WeatherCard from "./TestWeather";
 
 export default function HomeScreen() {
     const [today, setToday] = useState("");
@@ -60,58 +62,18 @@ useEffect(() => {
         </View>
         {/* search bar */}
         <View className="w-full px-4 py-2">
-          <View className="bg-[#84cc16] rounded-full border border-gray-300 flex-row items-center">
+          <View className="bg-[#84cc16] rounded-full border  border-gray-300 flex-row items-center">
             <Ionicons name="search" size={24} color="white" className="ml-4" />
             <TextInput
               placeholder="Search..."
-              className="flex-1 py-4 px-4 rounded-full"
+              className="flex-1 py-4 px-4 text-white rounded-full"
             />
           </View>
         </View>
       </View>
       <ScrollView  vertical={true} showsVerticalScrollIndicator={false}>
       <View className="px-4  mt-4 w-full">
-        <View className="flex-col bg-white px-4 py-4 rounded-xl gap-4 items-start justify-start">
-          <View className="w-full flex-row items-center justify-between">
-            <Text className="text-lg items-center font-bold text-green-900">
-              <Ionicons name="location" size={24} color="#16a34a" /> Kiambu
-            </Text>
-            <Text className="text-2xl font-bold text-green-900">54°F</Text>
-          </View>
-          <View className="w-full flex-row items-center justify-between">
-            <View className="flex-col items-center">
-              <Ionicons name="water" size={24} color="#16a34a" />
-              <Text className="text-sm text-green-800">25%</Text>
-
-              <Text className="text-md font-semibold text-green-900">
-                Soil Moisture
-              </Text>
-            </View>
-            <View className="flex-col items-center">
-              <Icon name="weather-windy" size={28} color="#16a34a" />
-
-              <Text className="text-sm text-green-800">16m/s</Text>
-
-              <Text className="text-md font-semibold text-green-900">Wind</Text>
-            </View>
-            <View className="flex-col items-center">
-              <Ionicons name="cloud" size={24} color="#16a34a" />
-              <Text className="text-sm text-green-800">70%</Text>
-
-              <Text className="text-md font-semibold text-green-900">
-                Humidity
-              </Text>
-            </View>
-            <View className="flex-col items-center">
-              <Ionicons name="sunny" size={24} color="#16a34a" />
-              <Text className="text-sm text-green-800">22°C</Text>
-
-              <Text className="text-md font-semibold text-green-900">
-                Temperature
-              </Text>
-            </View>
-          </View>
-        </View>
+       <WeatherCard/>
         <Text className="text-2xl py-4 font-bold text-green-900">
           Commodities and food
         </Text>
@@ -122,81 +84,81 @@ useEffect(() => {
         >
           <View className="w-full flex-row items-center gap-5">
             <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <View className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
+              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
                 <Text className="text-4xl font-bold">🌽</Text>
-              </View>
+              </TouchableOpacity>
               <Text className="text-lg font-bold text-green-900">Maize</Text>
             </View>
             <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <View className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
+              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
                 <Text className="text-4xl font-bold">🍇</Text>
-              </View>
+              </TouchableOpacity>
               <Text className="text-lg font-bold text-green-900">Grapes</Text>
             </View>
             <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <View className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
+              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
                 <Text className="text-4xl font-bold">🧅</Text>
-              </View>
+              </TouchableOpacity>
               <Text className="text-lg font-bold text-green-900">Onions</Text>
             </View>
             <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <View className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
+              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
                 <Text className="text-4xl font-bold">🥕</Text>
-              </View>
+              </TouchableOpacity>
               <Text className="text-lg font-bold text-green-900">Carrot</Text>
             </View>
             <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <View className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
+              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
                 <Text className="text-4xl font-bold">🥑</Text>
-              </View>
+              </TouchableOpacity>
               <Text className="text-lg font-bold text-green-900">Avocado</Text>
             </View>
             <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <View className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
+              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
                 <Text className="text-4xl font-bold">🍒</Text>
-              </View>
+              </TouchableOpacity>
               <Text className="text-lg font-bold text-green-900">Cherries</Text>
             </View>
             <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <View className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
+              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
                 <Text className="text-4xl font-bold">🍌</Text>
-              </View>
+              </TouchableOpacity>
               <Text className="text-lg font-bold text-green-900">Bananas</Text>
             </View>
             <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <View className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
+              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
                 <Text className="text-4xl font-bold">🍉</Text>
-              </View>
+              </TouchableOpacity>
               <Text className="text-lg font-bold text-green-900">
                 Watermelon
               </Text>
             </View>
             <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <View className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
+              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
                 <Text className="text-4xl font-bold">🥭</Text>
-              </View>
+              </TouchableOpacity>
               <Text className="text-lg font-bold text-green-900">Mango</Text>
             </View>
             <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <View className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
+              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
                 <Text className="text-4xl font-bold">🍓</Text>
-              </View>
+              </TouchableOpacity>
               <Text className="text-lg font-bold text-green-900">
                 Strawberries
               </Text>
             </View>
             <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <View className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
+              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
                 <Text className="text-4xl font-bold">🍍</Text>
-              </View>
+              </TouchableOpacity>
               <Text className="text-lg font-bold text-green-900">
                 Pineapple
               </Text>
             </View>
             <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <View className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
+              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
                 <Text className="text-4xl font-bold">🍋</Text>
-              </View>
+              </TouchableOpacity>
               <Text className="text-lg font-bold text-green-900">Lemon</Text>
             </View>
           </View>
