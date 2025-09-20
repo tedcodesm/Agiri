@@ -60,16 +60,7 @@ const BottomNavigator = () => {
           ),
         }}
       />
-      <Tab.Screen
-        name="weather"
-        component={WeatherCard}
-        options={{
-          tabBarLabel: "Test",
-          tabBarIcon: ({ focused }) => (
-            <Icon name="weather-sunny" size={25} color={focused ? "black" : "white"} />
-          ),
-        }}
-      />
+      
    
      
        

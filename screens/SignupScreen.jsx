@@ -12,7 +12,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import { BASE_URL } from "../config/ip";
+import { BASE_URL } from "../config/Ip";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const SignupScreen = ({}) => {

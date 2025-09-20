@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { View, Text, TextInput, Button, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { BASE_URL } from "../config/ip";
+import { BASE_URL } from "../config/Ip";
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);

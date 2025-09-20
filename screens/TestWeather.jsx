@@ -2,16 +2,39 @@ import React, { useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_KEY } from "../config/Ip";
 
 const WeatherCard = () => {
-  const API_KEY = "07a28d63264844dac0bd099c53716188";
   const [weather, setWeather] = useState(null);
+  const [user, setUser] = useState(null);
 
+   useEffect(() => {
+    const loadUser = async () => {
+      try {
+        const userData = await AsyncStorage.getItem("user");
+        if (userData) {
+          setUser(JSON.parse(userData));
+          console.log("User location:", JSON.parse(userData)?.location);
+        }
+        console.log("User loaded:", userData);
+      } catch (error) {
+        console.error("Error loading user:", error);
+      }
+    };
+
+    loadUser();
+  }, []);
+
+
+   const location = user?.location ; 
   useEffect(() => {
+
+     if (!location) return;
     const fetchWeather = async () => {
       try {
         const res = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?q=Limuru&appid=${API_KEY}&units=metric`
+          `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}&units=metric`
         );
         const data = await res.json();
         setWeather(data);
@@ -21,7 +44,7 @@ const WeatherCard = () => {
     };
 
     fetchWeather();
-  }, []);
+  }, [location]);
 
   if (!weather) {
     return (

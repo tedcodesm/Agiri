@@ -10,10 +10,10 @@ import {
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
-import { BASE_URL } from "../config/ip";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNotification } from "../context/NotificationContext";
+import { BASE_URL } from "../config/Ip";
 
 const LoginScreen = () => {
   const navigation = useNavigation();

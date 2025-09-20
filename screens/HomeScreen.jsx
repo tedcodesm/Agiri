@@ -13,9 +13,11 @@ import { Ionicons } from "@expo/vector-icons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { LineChart, BarChart, PieChart } from "react-native-chart-kit";  
 import WeatherCard from "./TestWeather";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function HomeScreen() {
     const [today, setToday] = useState("");
+    const [user, setUser] = useState(null);
 
 useEffect(() => {
   const updateDate = () => {
@@ -36,6 +38,24 @@ useEffect(() => {
 }, []);
 
 
+// get user data from async storage
+ useEffect(() => {
+    const loadUser = async () => {
+      try {
+        const userData = await AsyncStorage.getItem("user");
+        if (userData) {
+          setUser(JSON.parse(userData)); // stored as JSON.stringify(user)
+          console.log("User location:", JSON.parse(userData)?.location);
+        }
+        console.log("User loaded:", userData);
+      } catch (error) {
+        console.error("Error loading user:", error);
+      }
+    };
+
+    loadUser();
+  }, []);
+
    const getGreeting = () => {
     const hours = new Date().getHours();
 
@@ -50,7 +70,7 @@ useEffect(() => {
         <View className="w-full px-4 py- items-center  justify-between flex-row">
           <View className="flex flex-col items-start">
             <Text className="text-xl font-bold text-green-900 text-white">
-              {getGreeting()} Farmer
+              {getGreeting()} {user?.username}
             </Text>
             <Text className="text-sm text-green-800 text-white">
               {today}
