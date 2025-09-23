@@ -14,6 +14,49 @@ import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { BASE_URL } from "../config/Ip";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { Picker } from "@react-native-picker/picker";
+
+const counties = [
+  "Mombasa",
+  "Kwale",
+  "Kilifi",
+  "Lamu",
+  "Garissa",
+  "Wajir",
+  "Mandera",
+  "Marsabit",
+  "Isiolo",
+  "Meru",
+  "Embu",
+  "Kitui",
+  "Machakos",
+  "Makueni",
+  "Nyandarua",
+  "Nyeri",
+  "Kirinyaga",
+  "Murang'a",
+  "Kiambu",
+  "Turkana",
+  "Samburu",
+  "Nandi",
+  "Baringo",
+  "Laikipia",
+  "Nakuru",
+  "Narok",
+  "Kajiado",
+  "Kericho",
+  "Bomet",
+  "Kakamega",
+  "Vihiga",
+  "Bungoma",
+  "Busia",
+  "Siaya",
+  "Kisumu",
+  "Migori",
+  "Kisii",
+  "Nyamira",
+  "Nairobi",
+];
 
 const SignupScreen = ({}) => {
   const navigation = useNavigation();
@@ -21,7 +64,7 @@ const SignupScreen = ({}) => {
   const [password, setPassword] = useState("jcfvbnm,");
   const [email, setEmail] = useState("dbitlmr112624@spu.ac.ke");
   const [phone, setPhone] = useState("123456");
-  const [location, setLocation] = useState("Kiambu");
+  const [location, setLocation] = useState("");
   const [errorModalVisible, setErrorModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -33,10 +76,9 @@ const SignupScreen = ({}) => {
         password,
         email,
         phone,
-        location
+        location,
       });
 
-    
       if (response.status === 201) {
         alert(`Signup successful: ${response.data.message}`);
         navigation.navigate("otp", { email });
@@ -95,12 +137,17 @@ const SignupScreen = ({}) => {
           </View>
           <View className="mt-4">
             <Text className="text-lg">Location:</Text>
-            <TextInput
-              value={location}
-              onChangeText={setLocation}
-              className="border border-gray-300 p-2 rounded-lg"
-              placeholder="Enter your location"
-            />
+            <View className="border border-gray-300 rounded-lg">
+              <Picker
+                selectedValue={location || ""}
+                onValueChange={(itemValue) => setLocation(itemValue)}
+              >
+                <Picker.Item label="Select your county" value="" />
+                {counties.map((county, index) => (
+                  <Picker.Item key={index} label={county} value={county} />
+                ))}
+              </Picker>
+            </View>
           </View>
 
           <View className="mt-4">

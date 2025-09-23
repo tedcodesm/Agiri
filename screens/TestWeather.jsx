@@ -1,41 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { API_KEY } from "../config/Ip";
+import { API_KEY, BASE_URL } from "../config/Ip";
+import axios from "axios";
+import { UserContext } from "../context/UserContext";
+import { useFocusEffect } from "@react-navigation/native";
 
 const WeatherCard = () => {
   const [weather, setWeather] = useState(null);
-  const [user, setUser] = useState(null);
+  const { user, fetchUser } = useContext(UserContext);
+  
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchUser(); // refetch user whenever screen is focused
+    }, [])
+  );
 
-   useEffect(() => {
-    const loadUser = async () => {
-      try {
-        const userData = await AsyncStorage.getItem("user");
-        if (userData) {
-          setUser(JSON.parse(userData));
-          console.log("User location:", JSON.parse(userData)?.location);
-        }
-        console.log("User loaded:", userData);
-      } catch (error) {
-        console.error("Error loading user:", error);
-      }
-    };
-
-    loadUser();
-  }, []);
-
-
-   const location = user?.location ; 
   useEffect(() => {
-
-     if (!location) return;
+    if (!user?.location) return;
     const fetchWeather = async () => {
       try {
         const res = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${API_KEY}&units=metric`
-        );
+  `https://api.openweathermap.org/data/2.5/weather?q=${user.location}&appid=${API_KEY}&units=metric&timestamp=${Date.now()}`
+);
+
         const data = await res.json();
         setWeather(data);
       } catch (error) {
@@ -44,7 +34,7 @@ const WeatherCard = () => {
     };
 
     fetchWeather();
-  }, [location]);
+  }, [user?.location]);
 
   if (!weather) {
     return (
@@ -104,7 +94,6 @@ const WeatherCard = () => {
               Cloudiness
             </Text>
           </View>
-
         </View>
       </View>
     </View>
