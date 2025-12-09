@@ -1,4 +1,4 @@
-# Smart Agro-Advisory System — Toolkit Document
+# Smart Agro-Advisory System 
 
 ---
 
