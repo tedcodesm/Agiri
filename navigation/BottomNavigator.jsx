@@ -4,6 +4,7 @@ import HomeScreen from '../screens/HomeScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import WeatherCard from '../screens/TestWeather';
+import CropScreen from '../screens/CropScreen';
 
 
 const Tab = createBottomTabNavigator(); 
@@ -42,11 +43,11 @@ const BottomNavigator = () => {
       />
       <Tab.Screen
         name="not"
-        component={NotificationScreen}
+        component={CropScreen}
         options={{
-          tabBarLabel: "Notifications",
+          tabBarLabel: "Crop",
           tabBarIcon: ({ focused }) => (
-            <Icon name="bell" size={25} color={focused ? "black" : "white"} />
+            <Icon name="crop" size={25} color={focused ? "black" : "white"} />
           ),
         }}
       />

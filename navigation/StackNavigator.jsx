@@ -10,6 +10,7 @@ import LoginScreen from '../screens/LoginScreen';
 import VerifyOTP from '../screens/OtpScreen';
 import NotificationScreen from '../screens/NotificationScreen';
 import WeatherCard from '../screens/TestWeather';
+import CropScreen from '../screens/CropScreen';
 
 const Stack = createStackNavigator();
 const StackNavigator = () => {
@@ -23,6 +24,7 @@ const StackNavigator = () => {
     <Stack.Screen name="signup" component={SignupScreen} options={{headerShown:false}} />
     <Stack.Screen name="otp" component={VerifyOTP} options={{headerShown:false}} />
     <Stack.Screen name="weather" component={WeatherCard} options={{headerShown:false}} />
+    <Stack.Screen name="crop" component={CropScreen} options={{headerShown:false}} />
     
     </Stack.Navigator>
 
