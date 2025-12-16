@@ -70,4 +70,75 @@ cd agro-api
 
 npm install
 cp .env.example .env   # Insert API keys + MongoDB URI
-npm run dev
+npm run dev 
+```
+
+
+Environment Variables
+```bash
+EXPO_PUBLIC_WEATHER_API_KEY=your_openweather_api_key
+EXPO_PUBLIC_API_BASE_URL=http://localhost:5000
+```
+
+5) Minimal Working Example
+Weather & Market Advisory Card
+```bash
+import React, { useEffect, useState } from "react";
+import { View, Text } from "react-native";
+
+const API_KEY = process.env.EXPO_PUBLIC_WEATHER_API_KEY;
+
+export default function AdvisoryCard() {
+  const [weather, setWeather] = useState(null);
+  const maizePrice = 52;
+
+  useEffect(() => {
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=Nairobi&units=metric&appid=${API_KEY}`)
+      .then(res => res.json())
+      .then(data => setWeather(data));
+  }, []);
+
+  if (!weather) return <Text>Loading...</Text>;
+
+  return (
+    <View className="p-4 bg-green-100 rounded-lg">
+      <Text>Temperature: {weather.main.temp}°C</Text>
+      <Text>Maize Price: KES {maizePrice} / kg</Text>
+    </View>
+  );
+}
+```
+
+Expected Output:
+
+Current temperature displayed
+
+Sample market price shown
+
+Loading state while fetching data
+
+6) AI Prompt Journal
+
+Prompt Used:
+“Create a simple React Native component to show weather and market prices for farmers.”
+
+AI Contribution:
+Helped scaffold the minimal advisory UI and API integration.
+
+7) Common Issues & Fixes
+
+API not responding → Check API key validity
+
+Data not loading on phone → Use local IP instead of localhost
+
+Env variables missing → Restart Expo after changes
+
+8) References
+
+OpenWeatherMap API Documentation
+
+React Native Documentation
+
+Expo Environment Variables
+
+MongoDB Atlas Docs
