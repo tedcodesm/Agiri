@@ -17,16 +17,16 @@ const BottomNavigator = () => {
     tabBarInactiveTintColor: "white",
     tabBarStyle: {
       backgroundColor: "#84cc16",
-      borderTopLeftRadius: 80,   // rounded top corners
-      borderTopRightRadius: 80,  // rounded top corners
-      borderBottomLeftRadius: 80,  // rounded top corners
-      borderBottomRightRadius: 80,  // rounded top corners
-      position: "absolute",      // make it float
+      borderTopLeftRadius: 80,   
+      borderTopRightRadius: 80,  
+      borderBottomLeftRadius: 80,  
+      borderBottomRightRadius: 80,  
+      position: "absolute",     
       left: 10,
       right: 10,
       bottom: 10,
-      height: 60,                // adjust height if needed
-      elevation: 5,              // shadow for Android
+      height: 60,               
+      elevation: 5,            
     },
     headerShown: false,
   }}
@@ -45,9 +45,9 @@ const BottomNavigator = () => {
         name="not"
         component={CropScreen}
         options={{
-          tabBarLabel: "Crop",
+          tabBarLabel: "Crops",
           tabBarIcon: ({ focused }) => (
-            <Icon name="crop" size={25} color={focused ? "black" : "white"} />
+            <Icon name="chart-bar" size={25} color={focused ? "black" : "white"} />
           ),
         }}
       />

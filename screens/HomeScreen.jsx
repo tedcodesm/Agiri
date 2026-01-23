@@ -6,6 +6,8 @@ import {
   TextInput,
   ScrollView,
   Dimensions,
+  SafeAreaView,
+  ActivityIndicator,
   TouchableOpacity
 } from "react-native";
 import React, { useEffect, useState } from "react";
@@ -14,10 +16,16 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import { LineChart, BarChart, PieChart } from "react-native-chart-kit";  
 import WeatherCard from "./TestWeather";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { fetchFoodPrices } from "../services/FoodPrices";
+import { useNavigation } from "@react-navigation/native";
 
 export default function HomeScreen() {
     const [today, setToday] = useState("");
     const [user, setUser] = useState(null);
+    const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigation = useNavigation();
 
 useEffect(() => {
   const updateDate = () => {
@@ -63,6 +71,62 @@ useEffect(() => {
     if (hours < 18) return "Good Afternoon";
     return "Good Evening";
   };
+
+  const commodityEmojiMap = {
+  "Bananas": "🍌",
+  "Maize": "🌽",
+  "Beans": "🫘",
+  "Rice": "🍚",
+  "Tomatoes": "🍅",
+  "Onions": "🧅",
+  "Potatoes": "🥔",
+  "Cabbage": "🥬",
+  "Cowpeas": "🫘", 
+  "Avocado": "🥑",
+  "Sorghum": "🌾",
+  "Millet": "🌾",
+  "Green grams": "🫘",
+  
+};
+const popularCommodities = [
+  "Bananas",
+  "Maize",
+  "Beans",
+  "Cowpeas",
+  "Rice",
+  "Tomatoes",
+  "Cabbage",
+];
+useEffect(() => {
+    const loadData = async () => {
+      try {
+        const prices = await fetchFoodPrices();
+        setData(prices);
+      } catch (err) {
+        setError("Failed to load commodity data");
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadData();
+  }, []);
+
+  if (loading) {
+    return (
+      <SafeAreaView style={styles.center}>
+        <ActivityIndicator size="large" color="#006400" />
+        <Text>Loading commodities...</Text>
+      </SafeAreaView>
+    );
+  }
+
+  if (error) {
+    return (
+      <SafeAreaView style={styles.center}>
+        <Text style={{ color: "red" }}>{error}</Text>
+      </SafeAreaView>
+    );
+  }
   return (
     <View className="flex-1 bg-green-100">
       <StatusBar barStyle="light-content" backgroundColor="#84cc16" />
@@ -77,7 +141,7 @@ useEffect(() => {
             </Text>
           </View>
           <View className="w-8 h-8 bg-green-400 rounded-full items-center justify-center">
-            <Text className="text-white font-bold">*</Text>
+            <Text className="text-white text-4xl text-center font-bold">*</Text>
           </View>
         </View>
         {/* search bar */}
@@ -97,92 +161,24 @@ useEffect(() => {
         <Text className="text-2xl py-4 font-bold text-green-900">
           Commodities and food
         </Text>
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          className="mb-4"
-        >
-          <View className="w-full flex-row items-center gap-5">
-            <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
-                <Text className="text-4xl font-bold">🌽</Text>
+        <ScrollView horizontal={true} showsVerticalScrollIndicator={false} contentContainerStyle={styles.grid}>
+        {popularCommodities.map((comm) => {
+          const emoji = commodityEmojiMap[comm] || "🥕"; // fallback
+          return (
+            <View key={comm} style={styles.iconContainer}>
+              <TouchableOpacity
+                style={styles.iconButton}
+                onPress={() =>
+                  navigation.navigate("CommodityDetail", { commodity: comm })
+                }
+              >
+                <Text style={styles.emoji}>{emoji}</Text>
               </TouchableOpacity>
-              <Text className="text-lg font-bold text-green-900">Maize</Text>
+              <Text style={styles.label}>{comm}</Text>
             </View>
-            <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
-                <Text className="text-4xl font-bold">🍇</Text>
-              </TouchableOpacity>
-              <Text className="text-lg font-bold text-green-900">Grapes</Text>
-            </View>
-            <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
-                <Text className="text-4xl font-bold">🧅</Text>
-              </TouchableOpacity>
-              <Text className="text-lg font-bold text-green-900">Onions</Text>
-            </View>
-            <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
-                <Text className="text-4xl font-bold">🥕</Text>
-              </TouchableOpacity>
-              <Text className="text-lg font-bold text-green-900">Carrot</Text>
-            </View>
-            <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
-                <Text className="text-4xl font-bold">🥑</Text>
-              </TouchableOpacity>
-              <Text className="text-lg font-bold text-green-900">Avocado</Text>
-            </View>
-            <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
-                <Text className="text-4xl font-bold">🍒</Text>
-              </TouchableOpacity>
-              <Text className="text-lg font-bold text-green-900">Cherries</Text>
-            </View>
-            <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
-                <Text className="text-4xl font-bold">🍌</Text>
-              </TouchableOpacity>
-              <Text className="text-lg font-bold text-green-900">Bananas</Text>
-            </View>
-            <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
-                <Text className="text-4xl font-bold">🍉</Text>
-              </TouchableOpacity>
-              <Text className="text-lg font-bold text-green-900">
-                Watermelon
-              </Text>
-            </View>
-            <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
-                <Text className="text-4xl font-bold">🥭</Text>
-              </TouchableOpacity>
-              <Text className="text-lg font-bold text-green-900">Mango</Text>
-            </View>
-            <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
-                <Text className="text-4xl font-bold">🍓</Text>
-              </TouchableOpacity>
-              <Text className="text-lg font-bold text-green-900">
-                Strawberries
-              </Text>
-            </View>
-            <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
-                <Text className="text-4xl font-bold">🍍</Text>
-              </TouchableOpacity>
-              <Text className="text-lg font-bold text-green-900">
-                Pineapple
-              </Text>
-            </View>
-            <View className=" flex flex-col items-center gap-1 shadow-lg shadow-green-200 p-">
-              <TouchableOpacity className="w-20 h-20 bg-white items-center justify-center rounded-xl p-4">
-                <Text className="text-4xl font-bold">🍋</Text>
-              </TouchableOpacity>
-              <Text className="text-lg font-bold text-green-900">Lemon</Text>
-            </View>
-          </View>
-        </ScrollView>
+          );
+        })}
+      </ScrollView>
       </View>
           <View className="flex-1 pb-40 justify-center items-center p-5">
       <Text className="text-xl font-bold mb-3 text-green-900">
@@ -190,10 +186,10 @@ useEffect(() => {
       </Text>
       <LineChart
         data={{
-          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"],
+          labels: ["Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "jan"],
           datasets: [
             {
-              data: [120, 135, 150, 140, 160, 180, 129, 220],
+              data: [52, 71, 71, 45, 39, 39, 44, 56],
               color: () => `rgba(132, 204, 22, 1)`,
               strokeWidth: 2,
             },
@@ -230,4 +226,36 @@ useEffect(() => {
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: { flex: 1, backgroundColor: "#f8f9fa" },
+  header: { padding: 20, backgroundColor: "#84cc16", alignItems: "center" },
+  title: { fontSize: 26, fontWeight: "bold", color: "white" },
+  subtitle: { color: "white", marginTop: 4 },
+  grid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    padding: 2,
+  },
+  iconContainer: {
+    alignItems: "center",
+    margin: 12,
+    width: 80,
+  },
+  iconButton: {
+    width: 80,
+    height: 80,
+    backgroundColor: "white",
+    borderRadius: 16,
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#4ade80",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    elevation: 5,
+  },
+  emoji: { fontSize: 40 },
+  label: { marginTop: 8, fontWeight: "bold", color: "#14532d", fontSize: 14 },
+  center: { flex: 1, justifyContent: "center", alignItems: "center" },
+});
