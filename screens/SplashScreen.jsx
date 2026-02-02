@@ -20,7 +20,7 @@ const SplashScreen = ({ navigation }) => {
           Welcome to Agritech
         </Text>
         <TouchableOpacity
-          onPress={() => navigation.navigate("bottom")}
+          onPress={() => navigation.navigate("login")}
           className="px-4 py-2 rounded-full bg-[#84cc16] absolute bottom-8 w-full "
         >
           <Text className="text-white text-2xl font-bold text-center font-serif ">

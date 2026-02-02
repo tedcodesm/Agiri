@@ -142,13 +142,13 @@ const ProfilePage = () => {
         </TouchableOpacity>
         <Text className="text-3xl font-bold text-green-900">Profile</Text>
       </View>
-      <View className="w-full h-px bg-gray-300 mb-4"></View>
+      <View className="w-full h-px bg-gray-200 mb-4"></View>
 
       <View className="w-full flex-col gap-2">
         <Text className="font-bold text-xl">Username:</Text>
         <Text
           placeholder="Username"
-          className="border border-gray-300 w-full p-4 bg-gray-300 rounded-lg"
+          className="border border-gray-300 w-full p-4 bg-gray-200 rounded-lg"
         >
           {username}
         </Text>
@@ -157,7 +157,7 @@ const ProfilePage = () => {
         <Text className="font-bold text-xl">Email:</Text>
         <Text
           placeholder="Email"
-          className="border border-gray-300 w-full p-4 bg-gray-300 rounded-lg"
+          className="border border-gray-300 w-full p-4 bg-gray-200 rounded-lg"
         >
           {email}
         </Text>
@@ -166,7 +166,7 @@ const ProfilePage = () => {
         <Text className="font-bold text-xl">Phone:</Text>
         <Text
           placeholder="Phone"
-          className="border border-gray-300 w-full p-4 bg-gray-300 rounded-lg"
+          className="border border-gray-300 w-full p-4 bg-gray-200 rounded-lg"
         >
           {phone}
         </Text>

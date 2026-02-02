@@ -60,9 +60,9 @@ const counties = [
 
 const SignupScreen = ({}) => {
   const navigation = useNavigation();
-  const [username, setUsername] = useState("user");
+  const [username, setUsername] = useState("Ted");
   const [password, setPassword] = useState("jcfvbnm,");
-  const [email, setEmail] = useState("dbitlmr112624@spu.ac.ke");
+  const [email, setEmail] = useState("@gmail.com");
   const [phone, setPhone] = useState("123456");
   const [location, setLocation] = useState("");
   const [errorModalVisible, setErrorModalVisible] = useState(false);

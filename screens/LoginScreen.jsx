@@ -17,7 +17,7 @@ import { BASE_URL } from "../config/Ip";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
-  const [email, setEmail] = useState("dbitlmr112624@spu.ac.ke");
+  const [email, setEmail] = useState("@gmail.com");
   const [password, setPassword] = useState("jcfvbnm,");
   const [errorModalVisible, setErrorModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -43,10 +43,10 @@ const LoginScreen = () => {
       await AsyncStorage.setItem("user", JSON.stringify(res.data?.user));
       console.log("User data:", res.data?.user);
 
-      await schedulePushNotification(
-        `${getGreeting()} ${res.data.user.username}`,
-        "Welcome to Agritech where your journey begins!",
-      );
+      // await schedulePushNotification(
+      //   `${getGreeting()} ${res.data.user.username}`,
+      //   "Welcome to Agritech where your journey begins!",
+      // );
 
       navigation.navigate("bottom");
       console.log(res.data);
